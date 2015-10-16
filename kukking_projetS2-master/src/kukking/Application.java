@@ -23,44 +23,37 @@ public class Application {
 	public final static String[] logins = {"Martin","Laure","Robin","Maud","Alexandra"};
 	public final static String[] passwords = {"AM","CA","EX","LA","LI"};
 	
+	private boolean accesAdmin;
 	private IHM_User user;
-
 	private IHM_Administrator admin;
-	
 	private KukkingDisplay kukking;
-
 	private ReceiptsList liste_Favoris;
-	/**
-	 * to get liste favoris
-	 * @return
-	 */
+	private ReceiptsList receiptsList;
+	private Recipe recetteCourante;
+	
+	
+	/** to get liste favoris
+	 * @return liste_favoris **/
 	public ReceiptsList getListe_Favoris() {
 		return liste_Favoris;
 	}
-	/**
-	 * to set liste favoris
-	 * @param liste_Favoris
-	 */
+	
+	/** to set liste favoris
+	 * @param liste_Favoris **/
 	public void setListe_Favoris(ReceiptsList liste_Favoris) {
 		this.liste_Favoris = liste_Favoris;
 	}
 	
-	private ReceiptsList receiptsList;
-	/**
-	 * to get receiptslist
-	 * @return
-	 */
+	
+	/** to get receiptslist
+	 * @return receiptsList **/
 	public ReceiptsList getReceiptsList() {
 		return receiptsList;
 	}
 
-	private Recipe recetteCourante;
 
-	private boolean accesAdmin;
-	/**
-	 * to kwnow if user is connect in mode administrator
-	 * @return
-	 */
+	/** to kwnow if user is connect in mode administrator
+	 * @return accesAdmin **/
 	public boolean isAccesAdmin() {
 		return accesAdmin;
 	}
@@ -111,7 +104,7 @@ public class Application {
 			e.printStackTrace();
 		}
 		finally {
-				/* On ferme le worbook pour libérer la mémoire */
+				/* On ferme le worbook pour libï¿½rer la mï¿½moire */
 				try {
 					workbook.close();
 				} 
@@ -149,23 +142,17 @@ public class Application {
 		this.liste_Favoris.list.add(recetteAAjouter);
 	}
 
-	/**
-	 * display recipe to console
-	 * @param recetteAAfficher
-	 */
+	/** display recipe to console
+	 * @param recetteAAfficher **/
 	public void affichageRecette(Recipe recetteAAfficher) {
 		user.afficheElementsRecette(recetteAAfficher);
 	}
 
-	/**
-	 * ne s'effectue que si on n'est pas à la première page
-	 */
+	// ne s'effectue que si on n'est pas ï¿½ la premiï¿½re page
 	public void pagePrecedente() {
 	}
-
-	/**
-	 * ne s'effectue que si on n'est pas à la dernière page.
-	 */
+	
+	// ne s'effectue que si on n'est pas ï¿½ la derniï¿½re page.
 	public void pageSuivante() {
 	}
 
@@ -176,7 +163,7 @@ public class Application {
 	 * @param typeCuisine
 	 * @param typePlat
 	 * @param cout
-	 * @return
+	 * @return listWellReceipts
 	 */
 	public ArrayList<Recipe> rechercheRecettes(int tempsPrepaMax, String typeCuisine, String typePlat, String cout)
 	{
@@ -205,24 +192,9 @@ public class Application {
 			}
 		}
 		return listWellReceipts;
-		
-		/*Cette boucle est juste un test
-		for(Recipe currentRecipe: listWellReceipts)
-		{
-			System.out.println (currentRecipe.getNameRecipe());
-		}
-		// Fin de la boucle test*/
 	}
 
-	/*public void requestAdministrativeAccess(String login, String password) throws IOException
-	{
-		if (valider(login, password))
-			user.displayAdministrativePart();
-	}*/
-
-	/**
-	 * valid or not password give in parameter
-	 */
+	/**boolean whose return valid or not password give in parameter **/
 	public boolean valider(String login, String password) {
 		int numLogin = 0;
 		for (String currentLogin:logins)
@@ -237,10 +209,8 @@ public class Application {
 		return false;
 	}
 
-	/**
-	 * to get IHM_Administrator
-	 * @return
-	 */
+	/** to get IHM_Administrator
+	 * @return admin **/
 	public IHM_Administrator getAdmin() {
 		return admin;
 	}
