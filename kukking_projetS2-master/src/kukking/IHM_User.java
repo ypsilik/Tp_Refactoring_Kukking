@@ -3,30 +3,20 @@ package kukking;
 import java.io.IOException;
 
 
-/**
- * User interface
- */
+/** User interface **/
 interface IHM_User {
-  /**
-   * Ne s'effectue seulement si c'est un utilisateur qui est � la base de la recherche
-   */
+  
+  // Ne s'effectue seulement si c'est un utilisateur qui est � la base de la recherche
   int demandeNombrePersonne() ;
-
   String requestPassword() throws IOException;
 
-  /**
-   * Est r�alis�e � condition que le mot de passe renvoy� par l'utilisateur soit valide
-   */
+  /** Use if password OK **/
   void displayAdministrativePart() ;
 
-  /**
-   * Display all recipe's elements
- * @param RecipeToDisplay
- */
-void displayElementRecipe(Recipe RecipeToDisplay) ;
+  /** Display all recipe's elements
+   * @param RecipeToDisplay **/
+  void displayElementRecipe(Recipe RecipeToDisplay) ;
 
-  /**
-   * affiche la liste des recettes (seulement les noms)
-   */
-  void afficheListeRecettes(Recipe listeRecettes) ;
+  /** Display recipe list (just name) **/
+  void displayListRecipes(Recipe listRecipes) ;
 }

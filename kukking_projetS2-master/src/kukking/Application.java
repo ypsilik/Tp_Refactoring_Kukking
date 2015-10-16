@@ -29,7 +29,6 @@ public class Application {
 	private KukkingDisplay kukking;
 	private RecipesList listFavoris;
 	private RecipesList recipesList;
-//	private Recipe recetteCourante;
 	
 	
 	/** to get list favoris
@@ -65,17 +64,14 @@ public class Application {
 	 * @throws IndexOutOfBoundsException
 	 */
 	public Application() throws RowsExceededException, WriteException, IndexOutOfBoundsException
-	{
-		this.user = new UserConsole();
-		this.admin = new AdministratorConsole();
+	{	
 		this.recipesList = new RecipesList(this, false);
 		this.listFavoris = new RecipesList(this, true);
 		this.kukking = new KukkingDisplay(this);
 		
 		this.kukking.setLocationRelativeTo(null);
 		this.kukking.setVisible(true);
-		this.initFileRecipes();
-		
+		this.initFileRecipes();	
 	}
 
 	/**

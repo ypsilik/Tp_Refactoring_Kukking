@@ -3,14 +3,10 @@ package kukking;
 import java.io.IOException;
 
 
-/**
- * Administrator interface
- */
+/** Administrator interface **/
 interface IHM_Administrator {
-  boolean ok(Recipe recipeToDelete) throws IOException ;
+	boolean validateDeletionRecipe(Recipe recipeToDelete) throws IOException ;
 
-  /**
-   * donne le formulaire qui permet d'ajouter les données de la recette
-   */
-  Recipe formAddRecipe() throws IOException;
+	/** give form to permit to add recipe data **/
+	Recipe formAddRecipe() throws IOException;
 }
