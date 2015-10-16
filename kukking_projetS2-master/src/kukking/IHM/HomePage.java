@@ -93,7 +93,7 @@ public class HomePage extends JPanel{
 		ArrayList<Recipe> listRandom= new ArrayList<Recipe>();
 		for (int nbReceipts=0;nbReceipts<5;nbReceipts++)
 		{
-			ArrayList<Recipe> list = kukkingFrame.application.getReceiptsList().list;
+			ArrayList<Recipe> list = kukkingFrame.application.getRecipesList().list;
 			Random aleatoire = new Random();
 			int numAleatoire = aleatoire.nextInt(list.size());
 			while (listRandom.contains(list.get(numAleatoire)))

@@ -27,13 +27,13 @@ public class UserConsole implements IHM_User {
 	}
 
 	@Override
-	public void afficheElementsRecette(Recipe recipeToDisplay) {
+	public void displayElementRecipe(Recipe recipeToDisplay) {
 		String recipe = recipeToDisplay.getNameRecipe();
 		recipe += "\n" + recipeToDisplay.getNbPers() + " personnes";
-		recipe += "\nTemps de préparation : " + recipeToDisplay.getPreparationTime() + " min";
+		recipe += "\nTemps de prï¿½paration : " + recipeToDisplay.getPreparationTime() + " min";
 		recipe += "\nTemps de cuisson : " + + recipeToDisplay.getCookingTime() + " min";
 		recipe += "\nCout : " + recipeToDisplay.getCost();
-		recipe += "\nCatégories :\n";
+		recipe += "\nCatï¿½gories :\n";
 		for (int numRow=0;numRow<recipeToDisplay.getCategories().size();numRow++)
 		{
 			recipe += "  " + recipeToDisplay.getCategories().get(numRow)+"\n";
@@ -46,7 +46,7 @@ public class UserConsole implements IHM_User {
 			if (!recipeToDisplay.getUnits().get(numRow).equals("")) recipe += recipeToDisplay.getUnits().get(numRow)+" ";
 			recipe += recipeToDisplay.getIngredients().get(numRow)+"\n";
 		}
-		recipe += "\nPréparation :\n";
+		recipe += "\nPrï¿½paration :\n";
 		for (int numRow=0;numRow<recipeToDisplay.getPreparation().size();numRow++)
 		{
 			recipe += "    "+ recipeToDisplay.getPreparation().get(numRow)+"\n";

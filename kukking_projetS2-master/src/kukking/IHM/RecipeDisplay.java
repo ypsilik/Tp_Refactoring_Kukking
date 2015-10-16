@@ -48,12 +48,12 @@ public class RecipeDisplay extends JPanel implements ActionListener{
 		JCheckBox favoris = new JCheckBox("Favoris");
 		
 		JLabel ingredient = new JLabel("Ingredients");
-		//JLabel categorie = new JLabel("Catégories");
-		JLabel tempsPrepa = new JLabel("Temps de préparation");
+		//JLabel categorie = new JLabel("Catï¿½gories");
+		JLabel tempsPrepa = new JLabel("Temps de prï¿½paration");
 		JLabel tempsCuisson = new JLabel("Temps de cuisson");
-		JLabel cout = new JLabel("Coût");
-		JLabel preparation = new JLabel("Préparation");
-		JLabel bonApp = new JLabel("Bon appétit !");
+		JLabel cout = new JLabel("Coï¿½t");
+		JLabel preparation = new JLabel("Prï¿½paration");
+		JLabel bonApp = new JLabel("Bon appï¿½tit !");
 		
 		
 
@@ -131,7 +131,7 @@ public class RecipeDisplay extends JPanel implements ActionListener{
 			recipe.add(units,gbc);
 		}
 		
-	/* info complementaire (tps prépa ...) */
+	/* info complementaire (tps prï¿½pa ...) */
 		/* tps prepa */
 		tempsPrepa.setFont(new Font("Century Gothic", Font.PLAIN, 14));
 		gbc.gridx=6;
@@ -211,7 +211,7 @@ public class RecipeDisplay extends JPanel implements ActionListener{
 		recipe.add(bonApp, gbc);
 		gbc.gridx=0;
 		gbc.gridy=(13+i)+numStep;
-		returnHomePage = new JButton("Retour à la page d'accueil");
+		returnHomePage = new JButton("Retour ï¿½ la page d'accueil");
 		returnHomePage.addActionListener(kukkingFrame);
 		recipe.add(returnHomePage, gbc);
 		
@@ -226,7 +226,7 @@ public class RecipeDisplay extends JPanel implements ActionListener{
 		if (source.isSelected())
 		{
 			try {
-				this.kukkingFrame.application.getReceiptsList().getRecipeWithName(this.title.getText()).setFavoris();
+				this.kukkingFrame.application.getRecipesList().getRecipeWithName(this.title.getText()).setFavoris();
 			} catch (WriteException e1) {
 				e1.printStackTrace();
 			}
@@ -234,12 +234,12 @@ public class RecipeDisplay extends JPanel implements ActionListener{
 		else
 		{
 			try {
-				this.kukkingFrame.application.getReceiptsList().getRecipeWithName(this.title.getText()).deleteFavoris();
+				this.kukkingFrame.application.getRecipesList().getRecipeWithName(this.title.getText()).deleteFavoris();
 			} catch (WriteException e1) {
 				e1.printStackTrace();
 			}
 		}
-		this.kukkingFrame.application.setListe_Favoris(new ReceiptsList(this.kukkingFrame.application, true));
+		this.kukkingFrame.application.setListe_Favoris(new RecipesList(this.kukkingFrame.application, true));
 		this.kukkingFrame.displayListReceipts(this.kukkingFrame.homePage.favoris, this.kukkingFrame.application.getListe_Favoris().list, new Font("Century Gothic", Font.PLAIN, 18), false);
 	}
 }

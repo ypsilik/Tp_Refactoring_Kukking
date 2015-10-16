@@ -86,7 +86,7 @@ public class KukkingDisplay extends JFrame implements ActionListener, MouseListe
 		menuFile.addSeparator();
 		menuFile.add(menuQuitter);
 		
-		JMenuItem backToHome = new JMenuItem("Retourner à l'accueil");
+		JMenuItem backToHome = new JMenuItem("Retourner ï¿½ l'accueil");
 		backToHome.addActionListener(this);
 		menuAccueil.add(backToHome);
 		
@@ -148,7 +148,7 @@ public class KukkingDisplay extends JFrame implements ActionListener, MouseListe
 			{
 				ChangePanel(addDeleteRecipePage);
 			}
-			else if(source.getText().equals("Retourner à l'accueil"))
+			else if(source.getText().equals("Retourner ï¿½ l'accueil"))
 			{
 				ChangePanel(homePage);
 			}
@@ -169,18 +169,18 @@ public class KukkingDisplay extends JFrame implements ActionListener, MouseListe
 			
 			else if (source.getText().equals("Se connecter"))
 			{
-				application.valider(connectionPage.getLogin(),
+				application.toConnectInAdmin(connectionPage.getLogin(),
 						connectionPage.getPassword());
 				if (application.isAccesAdmin())
 				{
 					messageAdmin.setBorder(BorderFactory.createEmptyBorder(0,(int)dimension.getWidth()-375, 0, 0));
-					messageAdmin.setText("Connecté en tant qu'administrateur");
+					messageAdmin.setText("Connectï¿½ en tant qu'administrateur");
 					menuEdit.setVisible(true);
 				}
 				ChangePanel(homePage);
 			}
 			
-			else if (source.getText().equals("Retour à la page d'accueil"))
+			else if (source.getText().equals("Retour ï¿½ la page d'accueil"))
 			{
 				this.displayListReceipts(homePage.recettes, homePage.newListRandom(this), new Font("Century Gothic", Font.PLAIN, 18), false);
 				ChangePanel(homePage);
@@ -192,7 +192,7 @@ public class KukkingDisplay extends JFrame implements ActionListener, MouseListe
 				String typeCuisine = searchPage.getTypeCuisine();
 				String typePlat = searchPage.getTypePlat();
 				String cout = searchPage.getCost();
-				displayListReceipts(recipeListPage.listReceipts,application.rechercheRecettes(tempsPrepaMax,typeCuisine, typePlat, cout), new Font("Century Gothic", Font.PLAIN, 18),requestDelete);
+				displayListReceipts(recipeListPage.listReceipts,application.searchRecipes(tempsPrepaMax,typeCuisine, typePlat, cout), new Font("Century Gothic", Font.PLAIN, 18),requestDelete);
 				requestDelete = false;
 				ChangePanel(recipeListPage);
 			}
@@ -238,7 +238,7 @@ public class KukkingDisplay extends JFrame implements ActionListener, MouseListe
 					ingredients.add(currentString);
 				}
 				try {
-					application.getReceiptsList().addRecipe(new Recipe(this.formAddRecipePage.getTextAreaNameRecipe(), this.formAddRecipePage.getSliderPeople(), this.formAddRecipePage.getSliderTimePrepare(), this.formAddRecipePage.getSliderTimeCook(), this.formAddRecipePage.getCost(), categories, ingredients, quantities, units, preparation));
+					application.getRecipesList().addRecipe(new Recipe(this.formAddRecipePage.getTextAreaNameRecipe(), this.formAddRecipePage.getSliderPeople(), this.formAddRecipePage.getSliderTimePrepare(), this.formAddRecipePage.getSliderTimeCook(), this.formAddRecipePage.getCost(), categories, ingredients, quantities, units, preparation));
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -279,12 +279,12 @@ public class KukkingDisplay extends JFrame implements ActionListener, MouseListe
 				String nameRecipe = source.getText().substring(0,source.getText().length() - 9);
 				int option = JOptionPane.showConfirmDialog(null,"Etes-vous sur de vouloir supprimer la recette :\n"+ nameRecipe, "Supprimer recette",JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 				if (option == JOptionPane.YES_OPTION)
-					this.application.getReceiptsList().permanentlyDeleteRecipe(this.application.getReceiptsList().getRecipeWithName(nameRecipe));
+					this.application.getRecipesList().permanentlyDeleteRecipe(this.application.getRecipesList().getRecipeWithName(nameRecipe));
 			}
 			else
 			{
 				RecipeDisplay recipe;
-				recipe = new RecipeDisplay(this.application.getReceiptsList().getRecipeWithName(source.getText()), this);
+				recipe = new RecipeDisplay(this.application.getRecipesList().getRecipeWithName(source.getText()), this);
 				recipe.setPreferredSize(new Dimension(900, 700));
 				ChangePanel(recipe);
 			}

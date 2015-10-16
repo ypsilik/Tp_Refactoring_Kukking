@@ -15,7 +15,7 @@ import jxl.write.WriteException;
  * @author RO
  *
  */
-public class ReceiptsList {
+public class RecipesList {
 	
 	private Application application;
 	
@@ -54,7 +54,7 @@ public class ReceiptsList {
 
 		} catch (IOException e) {e.printStackTrace();} catch (BiffException e) {e.printStackTrace();}
 		finally {
-				/* On ferme le worbook pour libérer la mémoire */
+				/* On ferme le worbook pour libï¿½rer la mï¿½moire */
 				try {
 					workbook.close();
 				} 
@@ -84,7 +84,7 @@ public class ReceiptsList {
 	 * @param application
 	 * @param favoris
 	 */
-	public ReceiptsList(Application application, boolean favoris) {
+	public RecipesList(Application application, boolean favoris) {
 		this.application=application;
 		this.list = new ArrayList<Recipe>();
 		try {

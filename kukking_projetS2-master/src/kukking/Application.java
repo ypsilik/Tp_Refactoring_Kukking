@@ -27,32 +27,32 @@ public class Application {
 	private IHM_User user;
 	private IHM_Administrator admin;
 	private KukkingDisplay kukking;
-	private ReceiptsList liste_Favoris;
-	private ReceiptsList receiptsList;
-	private Recipe recetteCourante;
+	private RecipesList listFavoris;
+	private RecipesList recipesList;
+//	private Recipe recetteCourante;
 	
 	
-	/** to get liste favoris
-	 * @return liste_favoris **/
-	public ReceiptsList getListe_Favoris() {
-		return liste_Favoris;
+	/** to get list favoris
+	 * @return listFavoris **/
+	public RecipesList getListe_Favoris() {
+		return listFavoris;
 	}
 	
-	/** to set liste favoris
-	 * @param liste_Favoris **/
-	public void setListe_Favoris(ReceiptsList liste_Favoris) {
-		this.liste_Favoris = liste_Favoris;
+	/** to set list favoris
+	 * @param listFavoris **/
+	public void setListe_Favoris(RecipesList listFavoris) {
+		this.listFavoris = listFavoris;
 	}
 	
 	
-	/** to get receiptslist
-	 * @return receiptsList **/
-	public ReceiptsList getReceiptsList() {
-		return receiptsList;
+	/** to get recipeslist
+	 * @return recipesList **/
+	public RecipesList getRecipesList() {
+		return recipesList;
 	}
 
 
-	/** to kwnow if user is connect in mode administrator
+	/** to know if user is connect in mode administrator
 	 * @return accesAdmin **/
 	public boolean isAccesAdmin() {
 		return accesAdmin;
@@ -68,12 +68,14 @@ public class Application {
 	{
 		this.user = new UserConsole();
 		this.admin = new AdministratorConsole();
-		this.receiptsList = new ReceiptsList(this, false);
-		this.initFileReceipts();
-		this.liste_Favoris = new ReceiptsList(this, true);
+		this.recipesList = new RecipesList(this, false);
+		this.listFavoris = new RecipesList(this, true);
 		this.kukking = new KukkingDisplay(this);
+		
 		this.kukking.setLocationRelativeTo(null);
 		this.kukking.setVisible(true);
+		this.initFileRecipes();
+		
 	}
 
 	/**
@@ -82,7 +84,7 @@ public class Application {
 	 * @throws WriteException 
 	 * @throws RowsExceededException 
 	 */
-	private void initFileReceipts() throws RowsExceededException, WriteException, IndexOutOfBoundsException
+	private void initFileRecipes() throws RowsExceededException, WriteException, IndexOutOfBoundsException
 	{
 		WritableWorkbook workbook = null;
 		try {
@@ -95,107 +97,101 @@ public class Application {
 			}
 			
 			workbook.write(); 
-
 		} 
-		catch (IOException e) {
-			e.printStackTrace();
-		} 
-		catch (BiffException e) {
+		
+		catch (IOException | BiffException e) {
 			e.printStackTrace();
 		}
+		
 		finally {
 				/* On ferme le worbook pour lib�rer la m�moire */
-				try {
-					workbook.close();
-				} 
-				catch (WriteException e) {
-					e.printStackTrace();
-				} 
-				catch (IOException e) {
-					e.printStackTrace();
-				} 
-			
+			try {
+				workbook.close();
+			} 
+			catch (WriteException | IOException e) {					
+				e.printStackTrace();
+			}
 		}
 	}
 
 	/**
-	 * to delete favoris
-	 * @param recetteAAsupprimer
+	 * to delete a favori receipt and update list of favoris
+	 * @param recipeToDelete
 	 * @throws RowsExceededException
 	 * @throws WriteException
 	 */
-	public void supprimerFavori(Recipe recetteAAsupprimer) throws RowsExceededException, WriteException
+	public void deleteUpdateListFavori(Recipe recipeToDelete) throws RowsExceededException, WriteException
 	{
-		recetteAAsupprimer.deleteFavoris();
-		this.liste_Favoris.list.remove(recetteAAsupprimer);
+		recipeToDelete.deleteFavoris();
+		this.listFavoris.list.remove(recipeToDelete);
 	}
 
 	/**
-	 * to add favoris
-	 * @param recetteAAjouter
+	 * to add a favori recipe and update list of favoris
+	 * @param recipeToAdd
 	 * @throws RowsExceededException
 	 * @throws WriteException
 	 */
-	public void ajouterFavori(Recipe recetteAAjouter) throws RowsExceededException, WriteException
+	public void addUpdateListFavori(Recipe recipeToAdd) throws RowsExceededException, WriteException
 	{
-		recetteAAjouter.setFavoris();
-		this.liste_Favoris.list.add(recetteAAjouter);
+		recipeToAdd.setFavoris();
+		this.listFavoris.list.add(recipeToAdd);
 	}
 
 	/** display recipe to console
-	 * @param recetteAAfficher **/
-	public void affichageRecette(Recipe recetteAAfficher) {
-		user.afficheElementsRecette(recetteAAfficher);
+	 * @param recipeToDisplay **/
+	public void displayRecipe(Recipe recipeToDisplay) {
+		user.displayElementRecipe(recipeToDisplay);
 	}
 
 	// ne s'effectue que si on n'est pas � la premi�re page
-	public void pagePrecedente() {
+	public void previousPage() {
 	}
 	
 	// ne s'effectue que si on n'est pas � la derni�re page.
-	public void pageSuivante() {
+	public void nextPage() {
 	}
 
 	
 	/**
 	 * to search receipts with parameters
-	 * @param tempsPrepaMax
-	 * @param typeCuisine
+	 * @param timePrepaMax
+	 * @param typeCook
 	 * @param typePlat
 	 * @param cout
-	 * @return listWellReceipts
+	 * @return listWellRecipes
 	 */
-	public ArrayList<Recipe> rechercheRecettes(int tempsPrepaMax, String typeCuisine, String typePlat, String cout)
+	public ArrayList<Recipe> searchRecipes(int timePrepaMax, String typeCook, String typePlat, String cout)
 	{
-		ArrayList<Recipe> listWellReceipts = new ArrayList<Recipe>();
-		for (Recipe currentRecipe: receiptsList.list)
+		ArrayList<Recipe> listWellRecipes = new ArrayList<Recipe>();
+		for (Recipe currentRecipe: recipesList.list)
 		{
-			if (tempsPrepaMax >= currentRecipe.getPreparationTime())
+			if (timePrepaMax >= currentRecipe.getPreparationTime())
 			{
-				boolean typeCuisineValide = false;
-				boolean typePlatValide = false;
+				boolean typeCookOk = false;
+				boolean typePlatOk = false;
 				for (String categ: currentRecipe.getCategories())
 				{
-					if (categ.equals(typeCuisine)) typeCuisineValide = true;
-					if (categ.equals(typePlat)) typePlatValide = true;
+					if (categ.equals(typeCook)) typeCookOk = true;
+					if (categ.equals(typePlat)) typePlatOk = true;
 				}
-				if (typeCuisine.equals("Tous type de recettes") || typeCuisineValide)
+				if (typeCook.equals("Tous type de recettes") || typeCookOk)
 				{
-					if (typePlat.equals("Tous les plats") || typePlatValide)
+					if (typePlat.equals("Tous les plats") || typePlatOk)
 					{
 						if (cout.equals("Variable") || cout.equals(currentRecipe.getCost()))
 						{
-							listWellReceipts.add(currentRecipe);
+							listWellRecipes.add(currentRecipe);
 						}			
 					}
 				}
 			}
 		}
-		return listWellReceipts;
+		return listWellRecipes;
 	}
 
 	/**boolean whose return valid or not password give in parameter **/
-	public boolean valider(String login, String password) {
+	public boolean toConnectInAdmin(String login, String password) {
 		int numLogin = 0;
 		for (String currentLogin:logins)
 		{
