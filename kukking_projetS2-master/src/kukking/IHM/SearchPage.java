@@ -35,8 +35,7 @@ public class SearchPage extends JPanel {
 	private JRadioButton eleve;
 
 	private KukkingDisplay kukkingFrame;
-	
-	
+		
 	/**
 	 * constructor of page
 	 * @param kukkingFrame
@@ -91,7 +90,7 @@ public class SearchPage extends JPanel {
 			public void stateChanged(ChangeEvent e) {
 				currentTempsPrepaMax.setText("Valeur actuelle : " + ((JSlider)e.getSource()).getValue());			
 			}
-			});
+		});
 		
 		Box title = Box.createHorizontalBox();
 		title.add(new JLabel(new ImageIcon("kukkinglogo.png")));
@@ -111,16 +110,12 @@ public class SearchPage extends JPanel {
 		searchPageBox.add(currentTempsPrepaMax);
 		searchPageBox.add(buttonSearch);
 		searchPageBox.add(returnHomePage);
-		
-		
+	
 		this.add(searchPageBox);
 		
 		returnHomePage.addActionListener(kukkingFrame);
-		
-		
 	    //bouton RCH (recherche) pour accéder au panel de recherche
-		buttonSearch.addActionListener(kukkingFrame);
-		
+		buttonSearch.addActionListener(kukkingFrame);	
 	}
 	
 	/**

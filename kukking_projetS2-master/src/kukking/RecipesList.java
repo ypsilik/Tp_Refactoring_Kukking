@@ -22,13 +22,12 @@ public class RecipesList {
 	public ArrayList <Recipe> list;
 
 	/**
-	 * Ne s'effectue que si l'utilisateur a valider la suppression
+	 * Ne s'effectue que si l'utilisateur a validé la suppression
 	 * @throws IOException 
 	 */
 	public void deleteRecipe(Recipe recipeToDelete) throws IOException {
 		if (application.getAdmin().validateDeletionRecipe(recipeToDelete))
-			permanentlyDeleteRecipe(recipeToDelete);
-			
+			permanentlyDeleteRecipe(recipeToDelete);	
 	}
 
 	/**
@@ -48,25 +47,24 @@ public class RecipesList {
 						break;
 					}
 				}
-			
-			/* On ecrit le classeur */
 			workbook.write(); 
-
-		} catch (IOException e) {e.printStackTrace();} catch (BiffException e) {e.printStackTrace();}
+		}
+		catch (BiffException | IOException e) {
+			e.printStackTrace();
+		}
 		finally {
-				/* On ferme le worbook pour libï¿½rer la mï¿½moire */
-				try {
-					workbook.close();
-				} 
-				catch (WriteException e) {
-					e.printStackTrace();
-				} 
-				catch (IOException e) {
-					e.printStackTrace();
-				} 
-			
+				closeWorkbook(workbook); 
 		}
 		this.list.remove(recipeToDelete);
+	}
+
+	private void closeWorkbook(WritableWorkbook workbook) {
+		try {
+			workbook.close();
+		} 
+		catch (WriteException | IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -96,7 +94,9 @@ public class RecipesList {
 					this.list.add(new Recipe(currentSheet.getName()));
 				}
 			}
-		} catch (BiffException e) {e.printStackTrace();} catch (IOException e) {e.printStackTrace();}
+		} catch (BiffException | IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**

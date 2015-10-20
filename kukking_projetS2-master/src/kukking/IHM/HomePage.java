@@ -79,10 +79,8 @@ public class HomePage extends JPanel{
 		this.add(homePageTot);
 		
 		connection.addActionListener(kukkingFrame);
-		search.addActionListener(kukkingFrame);
-		
+		search.addActionListener(kukkingFrame);	
 	}
-
 
 	/**
 	 * to get new listRandom

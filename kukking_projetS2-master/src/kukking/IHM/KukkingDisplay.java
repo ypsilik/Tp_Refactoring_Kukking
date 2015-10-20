@@ -97,10 +97,7 @@ public class KukkingDisplay extends JFrame implements ActionListener, MouseListe
 		JMenuItem addDeleteRecipe = new JMenuItem("Saisie et suppression recette");
 		addDeleteRecipe.addActionListener(this);
 		menuEdit.add(addDeleteRecipe);
-		
-		
-		
-		
+
 		menuBar.add(menuFile);
 		menuBar.add(menuAccueil);
 		menuBar.add(menuHelp);
@@ -365,10 +362,7 @@ public class KukkingDisplay extends JFrame implements ActionListener, MouseListe
 		constraints.gridx = 0;
 		int numRow = 0;
 		jpanel.removeAll();
-		/*
-		 * JPanel listReceiptsToReplace = new JPanel();
-		 * listReceiptsToReplace.setLayout(new GridBagLayout());
-		 */
+
 		if (listToDisplay.size() == 0)
 		{
 			JLabel recipe = new JLabel("Aucune recette");

@@ -15,7 +15,7 @@ import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
 
 /**
- * class to get every elments recipe and write in (to favoris)
+ * class to get every elements recipe and write in (to favoris)
  * @author RO
  */
 public class Recipe {
@@ -59,10 +59,7 @@ public class Recipe {
 			this.workbook.write();
 		} catch (IOException e) {e.printStackTrace();} catch (BiffException e) {e.printStackTrace();}
 		finally {
-				/* On ferme le worbook pour lib�rer la m�moire */
-				try {
-					this.workbook.close();
-				} catch (WriteException e) {e.printStackTrace();} catch (IOException e) {e.printStackTrace();} 	
+			closeWorkbook();
 		}
 	}
 
@@ -98,7 +95,10 @@ public class Recipe {
 			Workbook workbook = Workbook.getWorkbook(new File(sourcePath));
 			Sheet recipe = workbook.getSheet(this.nameSheetRecipe);
 			return Integer.parseInt(recipe.getCell(cellNum).getContents());
-		} catch (BiffException e) {e.printStackTrace();} catch (IOException e) {e.printStackTrace();} 
+		}
+		catch (BiffException |IOException e) {
+			e.printStackTrace();
+		}
 		return 0;
 	}
 
@@ -111,7 +111,10 @@ public class Recipe {
 			{
 				return Integer.parseInt(recipe.getCell("F6").getContents());
 			}
-		} catch (BiffException e) {e.printStackTrace();} catch (IOException e) {e.printStackTrace();} 
+		}
+		catch (BiffException | IOException e) {
+			e.printStackTrace();
+		}
 		return 0;
 	}
 
@@ -121,7 +124,10 @@ public class Recipe {
 			Workbook workbook = Workbook.getWorkbook(new File(sourcePath));
 			Sheet recipe = workbook.getSheet(this.nameSheetRecipe);
 			if (!recipe.getCell("F8").getContents().equals("")) return recipe.getCell("F8").getContents();
-		} catch (BiffException e) {e.printStackTrace();} catch (IOException e) {e.printStackTrace();} 
+		}
+		catch (BiffException | IOException e) {
+			e.printStackTrace();
+		}
 		return "aucun";
 	}
 
@@ -136,7 +142,10 @@ public class Recipe {
 				categories.add(recipe.getCell(3, numRow).getContents());
 				numRow ++;
 			}
-		} catch (BiffException e) {e.printStackTrace();} catch (IOException e) {e.printStackTrace();} 
+		}
+		catch (BiffException | IOException e) {
+			e.printStackTrace();
+		}
 		return categories;
 	}
 
@@ -151,7 +160,10 @@ public class Recipe {
 				ingredients.add(recipe.getCell(0, numRow).getContents());
 				numRow ++;
 			}
-		} catch (BiffException e) {e.printStackTrace();} catch (IOException e) {e.printStackTrace();} 
+		} 
+		catch (BiffException | IOException e) {
+			e.printStackTrace();
+		}
 		return ingredients;
 	}
 
@@ -164,7 +176,10 @@ public class Recipe {
 			for (int numRow=5;numRow<this.getIngredients().size()+5;numRow++){
 				quantities.add(recipe.getCell(1, numRow).getContents());
 			}
-		} catch (BiffException e) {e.printStackTrace();} catch (IOException e) {e.printStackTrace();} 
+		} 
+		catch (BiffException | IOException e) {
+			e.printStackTrace();
+		}
 		return quantities;
 	}
 
@@ -177,7 +192,10 @@ public class Recipe {
 			for (int numRow=5;numRow<this.getIngredients().size()+5;numRow++){
 				units.add(recipe.getCell(2, numRow).getContents());
 			}
-		} catch (BiffException e) {e.printStackTrace();} catch (IOException e) {e.printStackTrace();} 
+		} 
+		catch (BiffException | IOException e) {
+			e.printStackTrace();
+		}  
 		return units;
 	}
 
@@ -192,11 +210,11 @@ public class Recipe {
 				preparation.add(recipe.getCell(4, numRow).getContents());
 				numRow ++;
 			}
-		} catch (BiffException e) {e.printStackTrace();} catch (IOException e) {e.printStackTrace();} 
+		} catch (BiffException | IOException e) {
+			e.printStackTrace();
+		} 
 		return preparation;
 	}
-
-
 
 	/**
 	 * constructor to the application's launcher to create receipts from already existing receipts in file
@@ -229,43 +247,18 @@ public class Recipe {
 
 			Label label = new Label(3,0, title);
 			recipe.addCell(label);
-
-			Number number = new Number(5, 2, nbPers);
-			recipe.addCell(number);
-
-			number = new Number(5, 4, preparationTime);
-			recipe.addCell(number);
-
-			number = new Number(5, 5, cookingTime);
-			recipe.addCell(number); 
-
 			label = new Label(5, 7, cost);
 			recipe.addCell(label);
+			
+			addCellOneCase(2,nbPers, recipe);
+			addCellOneCase(4,preparationTime, recipe);
+			addCellOneCase(5,cookingTime, recipe);
 
-			for (int categorieNum=0;categorieNum<categories.size();categorieNum++)
-			{
-				label = new Label(3, 5+categorieNum, categories.get(categorieNum));
-				recipe.addCell(label);
-			}
-
-			for (int ingredientNum=0;ingredientNum<ingredients.size();ingredientNum++)
-			{
-				label = new Label(0, 5+ingredientNum, ingredients.get(ingredientNum));
-				recipe.addCell(label);
-			}
-
-			for (int quantityNum=0;quantityNum<quantities.size();quantityNum++)
-			{
-				label = new Label(1, 5+quantityNum, quantities.get(quantityNum));
-				recipe.addCell(label);
-			}
-
-			for (int unitNum=0;unitNum<units.size();unitNum++)
-			{
-				label = new Label(2, 5+unitNum, units.get(unitNum));
-				recipe.addCell(label);
-			}
-
+			addGroupsCell(3,categories, recipe);
+			addGroupsCell(0,ingredients, recipe);
+			addGroupsCell(1,quantities, recipe);
+			addGroupsCell(2,units, recipe);
+			
 			int indexEndPreparation = 15;
 			for (int stepNum=0;stepNum<preparation.size();stepNum++)
 			{
@@ -276,34 +269,40 @@ public class Recipe {
 			label = new Label(4, indexEndPreparation, "");
 			recipe.addCell(label);
 			
-			// On ecrit dans le fichier excel
 			this.workbook.write(); 
 
 		} 
-		catch (IOException e) {
+		catch (IOException | RowsExceededException e) {
 			e.printStackTrace();
 		} 
-		catch (RowsExceededException e) {
-			e.printStackTrace();
-		}
-		catch (WriteException e) {
-			e.printStackTrace();
-		}
-		catch (BiffException e) {
+		catch (WriteException | BiffException e) {
 			e.printStackTrace();
 		}
 		finally {
-				// On ferme le worbook pour lib�rer la m�moire
-				try {
-					this.workbook.close();
-				} 
-				catch (WriteException e) {
-					e.printStackTrace();
-				} 
-				catch (IOException e) {
-					e.printStackTrace();
-				} 
-			
+				closeWorkbook(); 
+		}
+	}
+
+	private void closeWorkbook() {
+		try {
+			this.workbook.close();
+		} 
+		catch (WriteException | IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void addCellOneCase(int column,int RecipeOnbject, WritableSheet recipe) throws WriteException, RowsExceededException {
+		Number number = new Number(5, column, RecipeOnbject);
+		recipe.addCell(number);
+	}
+
+	private void addGroupsCell(int numLabel,ArrayList<String> typeCategories,WritableSheet recipe) throws WriteException, RowsExceededException {
+		Label label;
+		for (int categorieNum=0;categorieNum<typeCategories.size();categorieNum++)
+		{
+			label = new Label(numLabel, 5+categorieNum, typeCategories.get(categorieNum));
+			recipe.addCell(label);
 		}
 	}
 
@@ -316,7 +315,10 @@ public class Recipe {
 			Workbook workbook = Workbook.getWorkbook(new File(sourcePath));
 			Sheet recipe = workbook.getSheet(this.nameSheetRecipe);
 			if (recipe.getCell("D2").getContents().equals("Favoris")) return true;
-		} catch (BiffException e) {e.printStackTrace();} catch (IOException e) {e.printStackTrace();} 
+		} 
+		catch (BiffException | IOException e) {
+			e.printStackTrace();
+		} 
 		return false;
 	}
 }

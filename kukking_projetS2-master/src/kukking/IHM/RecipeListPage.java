@@ -20,7 +20,6 @@ public class RecipeListPage extends JPanel {
 	private KukkingDisplay kukkingFrame;
 	public JPanel listReceipts;
 	
-	
 	/**
 	 * constructor of page
 	 * @param kukkingFrame
@@ -46,7 +45,6 @@ public class RecipeListPage extends JPanel {
 		gbc.gridy=2;
 		returnHomePage = new JButton("Retour à la page d'accueil");
 		returnHomePage.addActionListener(kukkingFrame);
-		this.add(returnHomePage, gbc);
-		
+		this.add(returnHomePage, gbc);	
 	}	
 }

@@ -48,22 +48,18 @@ public class RecipeDisplay extends JPanel implements ActionListener{
 		JCheckBox favoris = new JCheckBox("Favoris");
 		
 		JLabel ingredient = new JLabel("Ingredients");
-		//JLabel categorie = new JLabel("Cat�gories");
 		JLabel tempsPrepa = new JLabel("Temps de pr�paration");
 		JLabel tempsCuisson = new JLabel("Temps de cuisson");
 		JLabel cout = new JLabel("Co�t");
 		JLabel preparation = new JLabel("Pr�paration");
 		JLabel bonApp = new JLabel("Bon app�tit !");
 		
-		
-
 		GridBagConstraints gbc = new GridBagConstraints();
 		
 		/* logo */
 		gbc.gridx=0;
 		gbc.gridy=0;
 		recipe.add(kukkingLogo,gbc);
-
 
 		/* titre */
 		title.setFont(new Font("Dom", Font.PLAIN, 50));
@@ -85,8 +81,7 @@ public class RecipeDisplay extends JPanel implements ActionListener{
 		{
 			favoris.setSelected(true);
 		}
-			
-
+	
 		/* personnes */
 		gbc.gridx=7;
 		gbc.gridy=1;
@@ -131,7 +126,6 @@ public class RecipeDisplay extends JPanel implements ActionListener{
 			recipe.add(units,gbc);
 		}
 		
-	/* info complementaire (tps pr�pa ...) */
 		/* tps prepa */
 		tempsPrepa.setFont(new Font("Century Gothic", Font.PLAIN, 14));
 		gbc.gridx=6;
@@ -179,7 +173,7 @@ public class RecipeDisplay extends JPanel implements ActionListener{
 		gbc.insets = new Insets(0, 0, 0, 0);
 		recipe.add(new JLabel(recipeToDisplay.getCost()), gbc);
 		
-	/* preparation */
+		/* preparation */
 		preparation.setFont(new Font("Century Gothic", Font.PLAIN, 14));
 		gbc.gridx=0;
 		gbc.gridy=9+i;

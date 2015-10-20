@@ -32,13 +32,9 @@ public class HelpPage extends JPanel{
 	 */
 	public HelpPage(KukkingDisplay kukkingFrame)
 	{
-
-
 		JTextPane help = new JTextPane();
 		JLabel title = new JLabel("Bienvenue sur la page d'aide");
 		title.setFont(new Font("Calibri", Font.BOLD, 27));
-
-
 
 		Box titleBox = Box.createHorizontalBox();
 		titleBox.add(kukkingLogo); 
@@ -48,9 +44,6 @@ public class HelpPage extends JPanel{
 		tot.add(titleBox);
 		tot.add(help);
 		tot.add(backToHome);
-
-
-
 
 		help.setOpaque(false); 
 		help.setFocusable(false);
@@ -71,18 +64,11 @@ public class HelpPage extends JPanel{
 				+ "\nEn cliquant sur «Connexion», vous serez alors connecter en tant qu'administrateur. Et vous pourrez retournez sur n'importe quelle page de l'application."
 				+ "\n \n");
 
-
 		help.setPreferredSize(new Dimension(800,400));
-
-
 
 		this.backToHome.addActionListener(kukkingFrame);
 		this.kukkingFrame=kukkingFrame;
 		this.add(tot);
-
-
-
-
 	}
 }
 

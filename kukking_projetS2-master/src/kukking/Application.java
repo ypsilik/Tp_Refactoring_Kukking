@@ -43,13 +43,11 @@ public class Application {
 		this.listFavoris = listFavoris;
 	}
 	
-	
 	/** to get recipeslist
 	 * @return recipesList **/
 	public RecipesList getRecipesList() {
 		return recipesList;
 	}
-
 
 	/** to know if user is connect in mode administrator
 	 * @return accesAdmin **/
@@ -100,13 +98,16 @@ public class Application {
 		}
 		
 		finally {
-				/* On ferme le worbook pour lib�rer la m�moire */
-			try {
-				workbook.close();
-			} 
-			catch (WriteException | IOException e) {					
-				e.printStackTrace();
-			}
+			closeWorkbook(workbook);
+		}
+	}
+
+	private void closeWorkbook(WritableWorkbook workbook) {
+		try {
+			workbook.close();
+		} 
+		catch (WriteException | IOException e) {					
+			e.printStackTrace();
 		}
 	}
 

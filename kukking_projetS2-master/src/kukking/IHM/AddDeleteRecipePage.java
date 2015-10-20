@@ -46,9 +46,7 @@ public class AddDeleteRecipePage extends JPanel
 		connectionPageBox.add(data);
 		
 		this.add(connectionPageBox);
-		
-		
-		
+
 		addRecipe.addActionListener(kukkingFrame);
 		deleteRecipe.addActionListener(kukkingFrame);
 		returnHomePage.addActionListener(kukkingFrame);

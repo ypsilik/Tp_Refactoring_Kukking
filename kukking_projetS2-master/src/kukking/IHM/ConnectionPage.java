@@ -38,10 +38,7 @@ public class ConnectionPage extends JPanel {
 		loginTextArea = new JTextField("Entrez votre login ici");
 		JLabel passWord = new JLabel("Entrez votre mot de passe");
 		passWordTextArea = new JTextField("Entrez votre mot de passe ici");
-		
-		
-		
-		
+
 		Box title = Box.createHorizontalBox();
 		title.add(kukkingLogo);
 		title.add(connectionTitle);
@@ -53,8 +50,7 @@ public class ConnectionPage extends JPanel {
 		data.add(passWordTextArea);
 		data.add(connection);
 		data.add(returnHomePage);
-		
-		
+	
 		Box connectionPageBox = Box.createVerticalBox();
 		connectionPageBox.add(title);
 		connectionPageBox.add(data);
@@ -65,15 +61,13 @@ public class ConnectionPage extends JPanel {
 		   public void focusGained(FocusEvent onclic){
 		    loginTextArea.setText("");
 		   }
-		  });
+		});
 		
 		passWordTextArea.addFocusListener(new FocusAdapter() {
 			   public void focusGained(FocusEvent onclic){
 			    passWordTextArea.setText("");
 			   }
-			  });
-	
-		
+		});	
 		returnHomePage.addActionListener(kukkingFrame);
 		connection.addActionListener(kukkingFrame);
 	}
